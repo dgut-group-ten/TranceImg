@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TranceImg.iml" filepath="$PROJECT_DIR$/.idea/modules/TranceImg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TranceImg_main.iml" filepath="$PROJECT_DIR$/.idea/modules/TranceImg_main.iml" group="TranceImg" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TranceImg_test.iml" filepath="$PROJECT_DIR$/.idea/modules/TranceImg_test.iml" group="TranceImg" />
+    </modules>
+  </component>
+</project>
