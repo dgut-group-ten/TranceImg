@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.UUID;
 
+import database.DBDao;
+
 /**
  * com.caoqiang.code
  *
@@ -25,7 +27,7 @@ public class Byte2File extends ByteToMessageCodec<String> {
     int fileIndex=0;//表示文件字节数组当前的索引
     boolean isHalf=false;//表示文件数据是否接收完
     byte[] wholeFile;//整个文件字节数组
-
+    final String absolutePath = "F:\\\\workplace\\\\workspace-sts-3.9.8.RELEASE\\\\TranceImg\\\\src\\main\\\\resources\\\\";
     @Override
     protected void encode(ChannelHandlerContext ctx, String msg, ByteBuf out) throws Exception {
         //wiriteandflush的参数即为这个方法接收道德msg值
@@ -59,7 +61,11 @@ public class Byte2File extends ByteToMessageCodec<String> {
                //设置是否半包为false 表示图片数组已满
                isHalf = false;
                //存储文件,返回响应
-               saveFile(wholeFile);
+               String picName = saveFile(wholeFile);
+               String sql = "INSERT INTO `ai`.`img`(`url`) VALUES ('" + absolutePath + picName + "')";
+               System.out.println(sql);
+               DBDao dbDao = new DBDao();
+               dbDao.update(sql);
                ctx.channel().writeAndFlush("success");
            }
            return;
@@ -79,10 +85,15 @@ public class Byte2File extends ByteToMessageCodec<String> {
         }else{
             in.readBytes(wholeFile,0,imgSize);
             //存储文件,返回响应
-            saveFile(wholeFile);
+            String picName = saveFile(wholeFile);
+            String sql = "INSERT INTO `ai`.`img`(`url`) VALUES ('" + absolutePath + picName + "')";
+            System.out.println(sql);
+            DBDao dbDao = new DBDao();
+            dbDao.update(sql);
             ctx.channel().writeAndFlush("success");
         }
     }
+//INSERT INTO `ai`.`img`(`id`, `url`) VALUES (1, 'F:\\workplace\\workspace-sts-3.9.8.RELEASE\\TranceImg\\src\\main\\resources\\123 - 副本 (2).png');
 
     String saveFile(byte[] wholeFile){
     	//图片存储的目录
